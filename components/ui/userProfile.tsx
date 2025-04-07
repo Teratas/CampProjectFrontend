@@ -40,7 +40,7 @@ export default function UserProfilePage(){
     useEffect(()=>{
         if(userData){
             form.reset({
-                name: userData.email ?? "",
+                name: userData.name ?? "",
                 telephone: userData.tel ?? "",
                 email: userData.email ?? ""
             });
