@@ -3,6 +3,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import axios from "axios";
+import { handleSubmit } from "./app/(logged-out)/register/action";
 
 const login = async (data: any) => {
   try {
@@ -64,8 +65,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   callbacks: {
-    async jwt({ token, user } : {token : any, user : any}) {
-      if (user) {
+    async jwt({ token, user, account } : {token : any, user : any, account : any}) {
+      if (user) { 
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
@@ -74,6 +75,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.token = user.token ?? ""
         token.tel = user.tel
       }
+      if(account){
+        console.log('account', account)
+        token.provider = account.provider
+      }
+      // token.thirdParty = account.provider !== "credentials";
+      // token.provider = account.provider;
       return token;
     },
 
@@ -87,6 +94,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token: token.token,
         tel : token.tel,
       };
+      if(token){
+        session.provider = token.provider
+      }
+      // session.thirdParty = token.thirdParty;
+      // session.provider = token.provider;
+    
       return session;
     },
 
