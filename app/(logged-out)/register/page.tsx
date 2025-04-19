@@ -16,7 +16,7 @@ const formSchema = z.object({
     confirmPassword: z.string(),
     tel : z.string().min(10).max(10),
     role : z.string().default('user'),
-    name : z.string()
+    name : z.string().min(3)
 
 }).superRefine((val, ctx) => {
     if(val.password != val.confirmPassword){
@@ -44,7 +44,13 @@ export default function Register(){
     const handleSubmitReset = async (data : formField) => {
         const res = await handleSubmit(data)
         console.log('res', res)
-        form.reset()
+        if(res.success){
+            form.reset()
+            alert('Success')
+        }else{
+            alert('Failed')
+        }
+        
     }
     return (
         <main className='min-h-screen flex justify-center items-center'>

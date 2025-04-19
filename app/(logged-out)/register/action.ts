@@ -2,10 +2,10 @@
 
 import axios from "axios";
 
-interface sendRegisterInterface {
+export interface sendRegisterInterface {
   email: string;
-  password: string;
-  confirmPassword: string;
+  password ?: string;
+  confirmPassword ?: string;
   tel: string;
   role: string;
   name: string;

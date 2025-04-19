@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "next-auth/react";
@@ -33,7 +33,7 @@ export default function LoginPage() {
   }
   return (
     <main className='min-h-screen flex justify-center items-center'>
-      <Card className='w-[500px] h-[600px]'>
+      <Card className='w-[500px]'>
         <CardHeader>
           <CardTitle className='text-3xl flex justify-center'>Login</CardTitle>
         </CardHeader>
@@ -46,6 +46,7 @@ export default function LoginPage() {
                   <FormControl>
                     <Input {...field} className='h-[50px]' type='text'/>
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )} />
               <FormField control={form.control} name="password"  render={({field}) => (
@@ -54,6 +55,7 @@ export default function LoginPage() {
                   <FormControl>
                     <Input {...field} type='password' className='h-[50px]'/>
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )} />
               <Button type='submit'>
